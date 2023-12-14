@@ -37,11 +37,36 @@ describe('es6', () => {
     });
 
     describe('#Dictionary', () => {
-        it('экземпляр класса создается', () => {
+        it('экземпляр класса создается корректно', () => {
             const dic = new core.Dictionary();
-
-            // TODO
             assert.strictEqual(!!dic, true);
         });
+
+
+        it('размер словаря изменяется корректно', () => {
+            const dic = new core.Dictionary();
+            dic.addWord("свет", "light")
+            dic.addWord("муха", "fly")
+            dic.addWord("кот", "cat")
+            assert.strictEqual(dic.getSize(), 3)
+            dic.deleteWord("кот")
+            assert.strictEqual(dic.getSize(), 2)
+        })
+
+        it('В словарь не добавляется некорректная информация', () => {
+            const dic = new core.Dictionary();
+            dic.addWord("свет", "light")
+            dic.addWord("муха", "fly")
+            dic.addWord("кот", 2)
+            assert.strictEqual(dic.getSize(), 2)
+        })
+
+        it('массив ключей генерируется корректно', () => {
+            const dic = new core.Dictionary();
+            dic.addWord("свет", "light")
+            dic.addWord("муха", "fly")
+            dic.addWord("кот", "cat")
+            assert.deepStrictEqual(dic.getAllWords(), ["свет", "муха", "кот"])
+        })
     });
 });
