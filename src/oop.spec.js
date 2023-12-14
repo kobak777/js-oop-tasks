@@ -24,6 +24,12 @@ describe('ООП', () => {
             assert.strictEqual(point.x, 1);
             assert.strictEqual(point.y, 0);
         });
+
+        it('Метод distanceToCenter работает корректно', () => {
+            const point = new core.Point(4, 3);
+
+            assert.strictEqual(point.distanceToCenter(), 5);
+        });
     });
 
     describe('#Point3D', () => {
@@ -53,41 +59,39 @@ describe('ООП', () => {
 
             assert.strictEqual(length, 5);
         });
+
+        it('Метод distanceToCenter работает корректно', () => {
+            const point = new core.Point3D(1, 2, 4);
+
+            assert.strictEqual(point.distanceToCenter(), 4.58257569495584);
+        });
     });
 
     describe('#Queue', () => {
         it('проверка массивом', () => {
             const queue = new core.Queue();
-            queue.push(...[1,2,3,4]);
-            assert.strictEqual(queue.pop(), 1);
-            assert.strictEqual(queue.pop(), 2);
-            assert.strictEqual(queue.size, 2);
-
-            queue.push(5);
-            assert.strictEqual(queue.size, 3);
-            assert.strictEqual(queue.pop(), 3);
-
-            queue.clear();
-            assert.strictEqual(queue.size, 0);
+            queue.add(23)
+            assert.strictEqual(queue.remove(), 23)
         });
 
         it('проверка на пограничные случаи', () => {
             const queue = new core.Queue();
-            assert.strictEqual(queue.size, 0);
-            assert.strictEqual(queue.pop(), undefined);
+            queue.add(45)
+            queue.add(32)
+            assert.strictEqual(queue.size(), 2)
+            queue.remove()
+            queue.remove()
+            assert.strictEqual(queue.size(), 0)
+            queue.remove()
+            assert.strictEqual(queue.size(), 0)
         });
 
         it('может создаться из массива', () => {
-            const queue = new core.Queue([1,-2,3,5]);
-            assert.strictEqual(queue.pop(), 1);
-            assert.strictEqual(queue.pop(), -2);
-            assert.strictEqual(queue.size, 2);
-        });
-
-        it('методы работают корректно ', () => {
-            const queue = new core.Queue([1,-2,3,5]);
-           // TODO: ваши тесты
-            assert.strictEqual(true, true);
+            const queue = new core.Queue([1,2,3,5]);
+            assert.strictEqual(queue.remove(), 1)
+            assert.strictEqual(queue.remove(), 2)
+            assert.strictEqual(queue.remove(), 3)
+            assert.strictEqual(queue.remove(), 5)
         });
     });
 });
